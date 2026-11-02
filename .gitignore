@@ -7,6 +7,7 @@ crash.log
 !*.tfvars.example
 # Keep .terraform.lock.hcl committed once generated.
 
+temp_auto_push.bat
 # Python
 __pycache__/
 *.pyc
@@ -17,3 +18,5 @@ __pycache__/
 # Local
 .env
 *.log
+.gitignore
+branch_structure.json
