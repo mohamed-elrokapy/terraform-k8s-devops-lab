@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---- build stage: install pinned dependencies into a virtualenv ----
-FROM python:3.12-slim-bookworm AS build
+FROM python:3.15-slim-bookworm AS build
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1
 RUN python -m venv /opt/venv
@@ -9,7 +9,7 @@ COPY requirements.txt /tmp/requirements.txt
 RUN /opt/venv/bin/pip install -r /tmp/requirements.txt
 
 # ---- runtime stage: no build tools, non-root, nothing writable needed ----
-FROM python:3.12-slim-bookworm AS runtime
+FROM python:3.15-slim-bookworm AS runtime
 ARG APP_VERSION=dev
 ARG GIT_SHA=unknown
 ENV PATH="/opt/venv/bin:${PATH}" \
