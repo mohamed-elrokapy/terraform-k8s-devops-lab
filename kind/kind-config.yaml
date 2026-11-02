@@ -1,0 +1,21 @@
+# One control-plane node and one worker. Host ports 8081 and 8443 map to the control-plane node,
+# which is labelled ingress-ready so `make ingress` can pin the ingress controller to it.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: tfk8s-lab
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 8081
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 8443
+        protocol: TCP
+  - role: worker
