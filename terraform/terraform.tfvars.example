@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is git-ignored.
+# Every value below is the default except where noted.
+
+kubeconfig_path = "~/.kube/config"
+kube_context    = "kind-tfk8s-lab" # change this to deploy to another cluster
+
+namespace   = "devops-lab"
+image       = "labapi:dev" # must carry an explicit tag, not :latest
+app_version = "dev"
+
+replicas              = 2
+enable_hpa            = true # needs metrics-server (make metrics-server on kind)
+enable_pdb            = true
+enable_network_policy = true
+
+enable_ingress = false # true needs an ingress controller (make ingress on kind)
+ingress_host   = "lab.localtest.me"
+
+dns_stub = false # true only for offline demos and CI
